@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="/css/babysitter-details.css">
+    <title>Detail-of-<%= babysitter.name %></title>
+</head>
+<body>
+    <!-- navbar imported from partials -->
+    <%- include('../partials/parent-navbar') %>
+    
+    <div class="babysitter-details">
+        <div class="detail-cover">
+            <img src="/uploads/<%= babysitter.profileImage || 'default.jpg'%>" alt="Photo de <%= babysitter.name %>" class="babysitter-image">
+            <div class="detail-text">
+                <h2><%= babysitter.name %></h2>
+                <p><strong>Âge :</strong> <%= babysitter.age %> ans</p>
+                <p><strong>Expérience :</strong> <%= babysitter.experience %> ans d'expérience</p>
+                <p><strong>Ville :</strong> <%= babysitter.location %></p>
+                <button id="reserveButton">Réserver Maintenant</button>
+            </div>
+        </div>
+      
+       <!-- À propos de moi Section -->
+    <div class="about-me">
+        <h3>À propos de moi</h3>
+        <p><%= babysitter.aboutMe || "Aucune description disponible pour le moment." %></p>
+    </div> 
+    <!-- Informations Supplémentaires -->
+    
+    <div class="additional-info">
+        <h3>Informations Complémentaires</h3>
+        <p><strong>Diplôme :</strong> <%= babysitter.education || "Non renseigné" %></p>
+        <p><strong>Expérience en Babysitting :</strong> <%= babysitter.experienceBabysitting || "Non renseigné" %> ans</p>
+        <p><strong>Expérience en Nounou :</strong> <%= babysitter.experienceNounou || "Non renseigné" %> ans</p>
+        <p><strong>Avez-vous des enfants ? :</strong> <%= babysitter.hasChildren ? "Oui" : "Non" %></p>
+        <p><strong>Fumez-vous ? :</strong> <%= babysitter.smokes ? "Oui" : "Non" %></p>
+        <p><strong>Permis de conduire :</strong> <%= babysitter.hasDrivingLicense ? "Oui" : "Non" %></p>
+    </div>
+    
+    <!-- Caractéristiques -->
+    <div class="characteristics">
+        <h3>Caractéristiques</h3>
+        <p><%= babysitter.characteristics || "Non renseigné" %></p>
+    </div>
+    
+    <!-- Langues Parlées -->
+    <div class="languages">
+        <h3>Langues Parlées</h3>
+        <p><%= babysitter.languages || "Non renseigné" %></p>
+    </div>
+    
+    <!-- Contact -->
+    <div class="contact">
+        <h3>Contact</h3>
+        <p><strong>Email :</strong> <%= babysitter.email || "Non renseigné" %></p>
+        <p><strong>Téléphone :</strong> <%= babysitter.phone || "Non renseigné" %></p>
+    </div>
+    
+    <!-- Compétences -->
+    <div class="skills">
+        <h3>Compétences</h3>
+        <ul>
+            <% if (babysitter.skills && babysitter.skills.length > 0) { %>
+                <% babysitter.skills.forEach(skill => { %>
+                    <li><%= skill %></li>
+                <% }) %>
+            <% } else { %>
+                <li>Non renseigné</li>
+            <% } %>
+        </ul>
+    </div>
+    <a href="/parent-profile" class="back-button">Retour à la recherche</a>
+</body>
+<script>
+document.getElementById('reserveButton').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent the default action of the button (if any)
+    
+    // Redirect to the /reserve route
+    window.location.href = '/reserve?babysitterId=<%= babysitter._id %>';
+});</script>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statut de votre profil</title>
+    <link rel="stylesheet" href="/css/styles.css"> <!-- Ensure correct CSS path -->
+</head>
+<body>
+    <div class="container">
+        <h2>Statut de votre profil</h2>
+        
+        <% if (messages && messages.info && messages.info.length > 0) { %>
+            <div class="alert alert-info"><%= messages.info %></div>
+        <% } %>
+        
+        <% if (messages && messages.error && messages.error.length > 0) { %>
+            <div class="alert alert-danger"><%= messages.error %></div>
+        <% } %>
+        
+
+        <a href="/">Retour à l'accueil</a>
+    </div>
+ 
+</body>
+</html>

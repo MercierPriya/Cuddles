@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <link rel="stylesheet" href="/css/admin-dashboard.css">
+    <title>Admin-Dashboard</title>
+</head>
+<body>
+ <%- include('../partials/admin-navbar') %>
+
+<h1>Tableau de bord Administrateur</h1>
+
+<table>
+    <tr>
+        <th>Photo</th>
+        <th>Nom</th>
+        <th>Email</th>
+        <th>📜 Diplôme</th>
+        <th>📄 Certificat</th>
+        <th>🆔 Carte d'identité</th>
+        <th>📝 Casier judiciaire</th>
+        <th>Action</th>
+    </tr>
+    <% babysitters.forEach(babysitter => { %>
+    <tr>
+        <td>
+            <% if (babysitter.profileImage) { %>
+                <img src="/uploads/<%= babysitter.profileImage %>" alt="Photo">
+            <% } else { %>
+                <span>Pas d'image</span>
+            <% } %>
+        </td>
+        <td><%= babysitter.name %></td>
+        <td><%= babysitter.email %></td>
+        
+        <!-- Lien vers les fichiers si existants -->
+        <td>
+            <% if (babysitter.diploma) { %>
+                <a href="/uploads/<%= babysitter.diploma %>" target="_blank">📜 Voir</a>
+            <% } else { %>
+                ❌
+            <% } %>
+        </td>
+        <td>
+            <% if (babysitter.certificate) { %>
+                <a href="/uploads/<%= babysitter.certificate %>" target="_blank">📄 Voir</a>
+            <% } else { %>
+                ❌
+            <% } %>
+        </td>
+        <td>
+            <% if (babysitter.identityCard) { %>
+                <a href="/uploads/<%= babysitter.identityCard %>" target="_blank">🆔 Voir</a>
+            <% } else { %>
+                ❌
+            <% } %>
+        </td>
+        <td>
+            <% if (babysitter.criminalRecord) { %>
+                <a href="/uploads/<%= babysitter.criminalRecord %>" target="_blank">📝 Voir</a>
+            <% } else { %>
+                ❌
+            <% } %>
+        </td>
+
+        <td>
+            <form action="/update-babysitter-status/<%= babysitter._id %>" method="POST">
+                   <input type="hidden" name="action" value="approve">
+                <button type="submit" class="accept-button">Approuver</button>
+            </form>
+               <form action="/update-babysitter-status/<%= babysitter._id %>" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir rejeter ce profil ?');">
+                   <input type="hidden" name="action" value="reject">
+                <button type="submit" class="reject-button">Rejeter</button>
+    </form>
+        </td>
+    </tr>
+    <% }); %>
+</table>
+<%- include('../partials/simple-footer') %>
+</body>
+</html>

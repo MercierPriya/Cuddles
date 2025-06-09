@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/babysitter-notification.css">
+    <title>Notifications</title>
+</head>
+<body>
+    <%- include('../partials/babysitter-navbar', {reservationsCount,unreadCount}) %>
+    
+<h2>🔔 Vos notifications</h2>
+<% const unreadNotifications = notifications.filter(n => !n.isRead); %>
+
+<ul class="notifications-list">
+  <% if (notifications.length === 0) { %>
+    <li class="no-notification" style="text-align:center;">Aucune notification récente</li>
+  <% } else { %>
+    <% notifications.slice().reverse().forEach(n => { %>
+      <li class="unread">
+        <div class="notification-message"><%= n.message %></div>
+        <div class="notification-date">Envoyé le <%= n.createdAt.toLocaleDateString() %></div>
+      </li>
+    <% }) %>
+  <% } %>
+</ul>
+
+
+    <h2>🔔 Notifications de Réservations</h2>
+
+<% if (reservations.length > 0) { %>
+    <ul class="reservation-list">
+        <% reservations.forEach(reservation => { %>
+           <li class="reservation-item 
+  <%= reservation.status === 'confirmed' ? 'confirmed' : 
+      reservation.status === 'rejected' ? 'rejected' : 'pending' %>">
+
+
+                <strong>Parent :</strong> <%= reservation.parentId.name %> <br>
+                <strong>Enfants :</strong> 
+                <% reservation.childDetails.forEach(child => { %>
+                    <span><%= child.name %> (Âge: <%= child.age %>)</span>
+                <% }) %> <br>
+                <strong>Date :</strong> <%= new Date(reservation.startDate).toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' }) %> 
+                - 
+                <%= new Date(reservation.endDate).toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' }) %> <br>
+                <strong>Préférences :</strong> <%= reservation.timePreference %> <br>
+                <strong>Téléphone :</strong> <%= reservation.phone %> <br>
+                <strong>Message :</strong> <%= reservation.specialRequest || 'Aucune demande spéciale' %> <br>
+                <% if (reservation.status === 'confirmed') { %>
+                    <span class="status-confirmed">✅ Réservation Confirmée</span>
+                <% } else if (reservation.status === 'rejected') { %>
+                    <span class="status-rejected">❌ Réservation Rejetée</span>
+                <% } else { %>
+                <button class="accept-btn"><a href="/accept/<%= reservation._id %>">Accepter</a></button>
+                <button class="reject-btn"><a  href="/reject/<%= reservation._id %>">Refuser</a></button>
+                <% } %>
+            </li>
+        <% }) %>
+    </ul>
+<% } else { %>
+    <p>Aucune réservation en attente.</p>
+<% } %>
+<%- include('../partials/simple-footer') %>
+</body>
+</html>

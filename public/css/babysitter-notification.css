@@ -1,0 +1,217 @@
+/* Root Colors */
+:root {
+    --main-color: #FF9A8B;  /* Warm Peach */
+    --accent-color: #E76F51; /* Soft Coral */
+    --bg-color: #FAF3E0;    /* Creamy White */
+    --text-color: #2A2A2A;  /* Dark Text Color */
+    --main-color2: #14213D; /* Dark Gray */
+    --background-dark: #333; /* Darker background for modern look */
+    --card-bg: #FFFFFF; /* Clean white card background */
+    --shadow: rgba(0, 0, 0, 0.1); /* Soft shadow for modern feel */
+}
+
+/* Body Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* Notification Title */
+h2 {
+    font-size: 2rem;
+    text-align: center;
+    color: var(--main-color2);
+    margin-bottom: 20px;
+}
+.notifications-list {
+  list-style: none;
+  padding: 0;
+}
+
+.notifications-list li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  transition: background-color 0.3s;
+}
+
+.notifications-list li.unread {
+  background-color: #f0f8ff;
+  font-weight: bold;
+}
+.notification-item.read {
+    opacity: 0.5;
+}
+
+.reservation-item.confirmed {
+    background-color: #d4edda; /* light green */
+}
+
+.reservation-item.rejected {
+    background-color: #f8d7da; /* light red */
+}
+
+.reservation-item.pending {
+    background-color: #fff3cd; /* light yellow */
+}
+
+/* Notification List */
+.reservation-list {
+    list-style-type: none;
+    padding: 0;
+    width: 80%;
+    margin: 0 auto;
+    max-width: 900px; /* Limiting the width on larger screens */
+}
+
+/* Individual Reservation Item */
+.reservation-item {
+    background-color: var(--card-bg);
+    padding: 20px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.reservation-item:hover {
+    box-shadow: 0 10px 20px var(--shadow); /* Modern hover effect */
+    transform: translateY(-5px); /* Subtle lift effect on hover */
+}
+
+/* Text Styles in Reservation */
+.reservation-item strong {
+    font-weight: bold;
+    color: var(--main-color2);
+}
+
+/* Child Details */
+.reservation-item span {
+    margin-right: 10px;
+}
+button a {
+    text-decoration: none; /* Remove text decoration from links */
+    color: white;
+ 
+}
+.accept-btn {
+    background-color: #28a745; /* Green */
+    color: #ffffff;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.accept-btn:hover {
+    background-color: #218838; /* Darker Green */
+}
+
+/* Reject Button (Red for Rejection) */
+.reject-btn {
+    background-color: #dc3545; /* Red */
+    color: #ffffff;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.reject-btn:hover {
+    background-color: #c82333; /* Darker Red */
+}
+/* No Reservations Text */
+p {
+    text-align: center;
+    color: var(--main-color2);
+    font-size: 1.2rem;
+}
+.notification-date{
+    font-size: 12px;
+    color:grey;
+}
+/* Media Queries for Responsiveness */
+
+/* Tablet Screens (width 768px to 1024px) */
+@media (max-width: 1024px) {
+    h2 {
+        font-size: 1.75rem;
+    }
+
+    .reservation-item {
+        padding: 15px;
+    }
+
+    .accept-btn, .reject-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+
+    .reservation-item strong {
+        font-size: 1rem;
+    }
+}
+
+/* Mobile Screens (width 480px to 768px) */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .reservation-item {
+        padding: 12px;
+    }
+
+    .accept-btn, .reject-btn {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+    }
+
+    .reservation-item strong {
+        font-size: 0.95rem;
+    }
+
+    .reservation-item span {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .reservation-list {
+        padding-left: 10px;
+    }
+}
+
+/* Mobile Portrait Screens (width 320px to 480px) */
+@media (max-width: 480px) {
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    .reservation-item {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .accept-btn, .reject-btn {
+        width: 100%;
+        padding: 10px;
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+    }
+
+    .reservation-item strong {
+        font-size: 0.9rem;
+    }
+
+    .reservation-item span {
+        margin-right: 0;
+        font-size: 0.9rem;
+    }
+}

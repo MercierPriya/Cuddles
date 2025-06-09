@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuddles</title>
+    <link rel="shortcut icon" href="/images/logo-color.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+       <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <!-- Logo -->
+                <a class="navbar-brand brand" href="#">
+                    <img id="logo" src="/images/logo-color.png" alt="logo" style="width: 50px; height:50px;border-radius: 10%;">
+                </a>
+                <h1 class="navbar-title title mx-3 lily-script-one-regular text-var(--bg-color)">Cuddles</h1>
+                
+                <!-- Toggler Button -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" 
+                    aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+  
+                <!-- Navbar Links -->
+                 <div class="collapse navbar-collapse justify-content-center" id="navbarTogglerDemo01">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center">
+                        <li class="nav-item">
+                            <button type="button" id="connexion" class="btn btn-outline-light m-2">Connexion</button>
+                        </li>
+                        <li class="nav-item">
+                            <button type="button" id="inscription" class="btn btn-outline-light m-2">Inscription</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav> 
+     </header>
+       <main>
+        <div class="intro">
+            <h1>Trouver la garde d'enfants idéale,<br> en toute confiance</h1>
+            <button id="inscription1">commencez gratuitement</button>
+        </div>
+        <section class="apropos">
+            <h2>A propos de Nous</h2>
+            <div class="content-wrapper">
+                <div class="div1">
+                    <h3>Trouvez rapidement un(e) baby-sitter à proximité</h3>
+                    <p>Trouver une baby-sitter de confiance n’a jamais été aussi simple ! Grâce à notre plateforme, vous pouvez rapidement trouver une baby-sitter près de chez vous, en fonction de votre emploi du temps chargé. Toutes nos baby-sitters sont <b>profils vérifiés</b> , possèdent les <b>diplômes nécessaires</b> et ont soumis un <b>casier judiciaire vierge</b>, ainsi qu’une <b>pièce d’identité</b> valide. Offrez à vos enfants un environnement sûr et chaleureux avec des professionnels qualifiés et bienveillants. 💖👶</p>
+                    <button id="inscription2">Je m'inscrire gratuitement</button>
+                </div>
+                <div class="div2">
+                    <img src="/images/pexels-kseniachernaya-8535230.jpg" alt="Babysitter image">
+                </div>
+            </div>
+        </section>
+        <div class="container mt-4">
+            <div class="card populaire-card p-4 shadow-lg border-0">
+                <h3 class="text-center mb-4 fw-bold text-uppercase">Populaire</h3>
+        
+                <div class="row text-center city-row">
+                    <div class="col-md-3 col-sm-6 col-12 p-2">Paris</div>
+                    <div class="col-md-3 col-sm-6 col-12 p-2">Lyon</div>
+                    <div class="col-md-3 col-sm-6 col-12 p-2">La Rochelle</div>
+                    <div class="col-md-3 col-sm-6 col-12 p-2">Nantes</div>
+                </div>
+        
+                <div class="row text-center city-row">
+                    <div class="col-md-3 col-sm-6 col-12 p-2">Marseille</div>
+                    <div class="col-md-3 col-sm-6 col-12 p-2">Toulouse</div>
+                    <div class="col-md-3 col-sm-6 col-12 p-2">Nice</div>
+                    <div class="col-md-3 col-sm-6 col-12 p-2">Bordeaux</div>
+                </div>
+            </div>
+        </div>
+        
+        <%- include('../partials/footer') %>
+
+        
+       </main>
+  
+    
+    
+    <script>
+        const connexion = document.getElementById("connexion");
+        connexion.addEventListener("click", () => {
+          window.location.href = `/login`;  // Redirects to the login route
+        });
+        const inscription = document.getElementById("inscription");
+        inscription.addEventListener("click", () => {
+          window.location.href = "/register";  // Redirects to the register route
+        });
+        const inscription1=document.getElementById("inscription1")
+        const inscription2=document.getElementById("inscription2")
+        inscription1.addEventListener('click',()=>{
+            window.location.href = "/register"; // redirects to the inscription page
+        });
+        inscription2.addEventListener('click',()=>{
+            window.location.href = "/register"; // redirects to the inscription page
+        });
+    </script>   
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</html>

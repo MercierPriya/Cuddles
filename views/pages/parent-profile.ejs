@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> 
+         <link rel="stylesheet" href="/css/parent-profile.css">
+       <!-- In <head> carousel-->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+
+    </head>
+    
+    <title>Profile</title>
+</head>
+<body>
+    <!-- navbar imported from partials -->
+    <%- include('../partials/parent-navbar') %>
+
+    <div class="welcome-bar">
+        <h2 class="welcome-heading">Bienvenue, <%= user.email %> !</h2>
+        <a href="/update-parent/<%= user.id %>"class="edit-profile-link">Modifier le profil</a>
+
+    </div>
+    <% if (messages.success) { %>
+        <div class="alert alert-success">
+            <%= messages.success %>
+            <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
+        </div>
+    <% } %>
+    <% if (messages.error) { %>
+        <div class="alert alert-danger">
+            <%= messages.error %>
+            <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
+        </div>
+    <% } %>
+    
+    <section id="search-bar" class="search-bar">
+        <form action="/parent-profile" method="GET">
+            <input type="text" name="location" placeholder="Rechercher par ville" required>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+            <% if (location) { %>
+                <a href="/parent-profile" class="btn btn-secondary">Réinitialiser</a>
+            <% } %>
+        </form>
+    </section>
+    <% if (location) { %>
+    <h2 class="babysitter-section-title">Résultats pour "<%= location %>"</h2>
+    <div class="search-results">
+     <% if (searchResults.length > 0) { %>
+      <% searchResults.forEach(babysitter => { %>
+                <% if (babysitter.status === "approved") { %>
+                    <div class="babysitter-card">
+                        <a href="/babysitter-details/<%= babysitter._id %>">
+                            <img src="/uploads/<%= babysitter.profileImage || 'default.jpg'%>" class="babysitter-image" />
+                            <h3><%= babysitter.name %></h3>
+                            <p><strong>Age :</strong> <%= babysitter.age %> ans</p>
+                            <p><strong>Expérience :</strong> <%= babysitter.experience || "Non renseigné" %></p>
+                            <p><strong>Ville :</strong> <%= babysitter.location %></p>
+                        </a>
+                    </div>
+                <% } %>
+            <% }); %>
+        <% } else { %>
+            <p>Aucun babysitter trouvé pour "<%= location %>".</p>
+        <% } %>
+    </div>
+<% } else { %>
+    <!-- Babysitters from the same city -->
+        <h2 class="babysitter-section-title">Babysitters dans votre ville</h2>
+<div class="same-city-babysitters">
+ 
+    <% if (sameCityBabysitters.length > 0) { %>
+        <% sameCityBabysitters.forEach(babysitter => { %>
+            <% if (babysitter.status === "approved") { %>
+                <div class="babysitter-card">
+                    <a href="/babysitter-details/<%= babysitter._id %>">
+                        <img src="/uploads/<%= babysitter.profileImage || 'default.jpg'%>" class="babysitter-image" />
+                        <h3><%= babysitter.name %></h3>
+                        <p><strong>Age :</strong> <%= babysitter.age %> ans</p>
+                        <p><strong>Expérience :</strong> <%= babysitter.experience || "Non renseigné" %></p>
+                        <p><strong>Ville :</strong> <%= babysitter.location %></p>
+                    </a>
+                </div>
+            <% } %>
+        <% }); %>
+    <% } else { %>
+        <p>Aucun babysitter trouvé dans votre ville.</p>
+    <% } %>
+</div>
+
+<!-- Carousel with all babysitters -->
+<div class="carousel-section">
+<h2 class="babysitter-section-title">Tous les babysitters</h2>
+    <div class="carousel-wrapper">
+        <% allBabysitters.forEach(babysitter => { %>
+            <% if (babysitter.status === "approved") { %>
+                <div class=" babysitter-card">
+                    <a href="/babysitter-details/<%= babysitter._id %>">
+                        <img src="/uploads/<%= babysitter.profileImage || 'default.jpg'%>" class="babysitter-image" />
+                        <h3><%= babysitter.name %></h3>
+                        <p><strong>Age :</strong> <%= babysitter.age %> ans</p>
+                        <p><strong>Ville :</strong> <%= babysitter.location %></p>
+                    </a>
+                </div>
+            <% } %>
+        <% }) %>
+    </div>
+</div>
+<% } %>
+<!-- Before closing</body> script for carousel-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+</body>
+<%- include('../partials/simple-footer') %>
+
+<script>
+        // Cacher automatiquement le message après 5 secondes
+        setTimeout(() => {
+        let alerts = document.querySelectorAll('.alert');
+        alerts.forEach(alert => {
+            alert.style.opacity = '0';
+            setTimeout(() => alert.style.display = 'none', 500);
+        });
+    }, 10000);
+    //carousel script for allbaysitters
+    $(document).ready(function(){
+        $('.carousel-wrapper').slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            arrows: true,
+            dots: true,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: { slidesToShow: 1 }
+                }
+            ]
+        });
+    });
+
+
+</script>
+
+</html>

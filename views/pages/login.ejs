@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Cuddles</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+
+  <div class="login-container">
+    <div style="text-align: center; margin-bottom: 1rem;">
+  <img src="/images/logo-color.png" alt="Logo Cuddles" style="height:150px; width:150px;" />
+</div>
+    <h1>Connexion à Cuddles</h1>
+    <form id="loginForm" action="/login" method="POST">
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="password" name="password" placeholder="Mot de passe" required />
+      <button type="submit">Se connecter</button>
+    </form>
+
+    <% if (message) { %>
+      <div class="alert"><%= message %></div>
+    <% } %>
+
+    <div class="links">
+      <a href="/forgot-password">Mot de passe oublié ?</a><br />
+      <span>Pas encore inscrit ? <a href="/register">S'inscrire</a></span><br>
+        <a href="/" class="back-button">Retour à l'accueil</a>
+    </div>
+  </div>
+
+</body>
+<script>
+  document.getElementById("loginForm").addEventListener("submit", function (e) {
+    const email = this.email.value.trim();
+    const password = this.password.value.trim();
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      alert("Veuillez entrer une adresse email valide.");
+      e.preventDefault();
+      return;
+    }
+
+    if (password.length < 6) {
+      alert("Le mot de passe doit contenir au moins 6 caractères.");
+      e.preventDefault();
+      return;
+    }
+  });
+</script>
+</html>
+

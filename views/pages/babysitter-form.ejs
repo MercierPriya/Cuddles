@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/form.css">
+    <title>Update-Profile</title>
+</head>
+<body>
+
+    <form action="/update-babysitter" method="POST" enctype="multipart/form-data">
+        <h2>Mettre à jour le profil</h2>
+        <div>
+            <label for="age">Âge :</label>
+            <input type="number" name="age" value="<%= babysitter.age %>">
+        </div>
+    
+        <div>
+            <label for="aboutMe">À propos de moi :</label>
+            <textarea name="aboutMe"><%= babysitter.aboutMe %></textarea>
+        </div>
+    
+        <div>
+            <label for="education">Éducation :</label>
+            <input type="text" name="education" value="<%= babysitter.education %>" >
+        </div>
+    
+        <div>
+            <label for="experienceBabysitting">Expérience (Babysitting) :</label>
+            <input type="number" name="experienceBabysitting" value="<%= babysitter.experienceBabysitting %>">
+        </div>
+    
+        <div>
+            <label for="experienceNounou">Expérience (Nounou) :</label>
+            <input type="number" name="experienceNounou" value="<%= babysitter.experienceNounou %>">
+        </div>
+        <div>
+            <label for="skills">Compétences (séparées par des virgules) :</label>
+            <input type="text" name="skills" value="<%= babysitter.skills.join(', ') %>" placeholder="Compétence1, Compétence2, ..." >
+        </div>
+        <div>
+            <label for="hasChildren">A-t-il des enfants ? :</label>
+            <input type="checkbox" name="hasChildren" <%= babysitter.hasChildren ? 'checked' : '' %>>
+        </div>
+    
+        <div>
+            <label for="smokes">Fume-t-il ? :</label>
+            <input type="checkbox" name="smokes" <%= babysitter.smokes ? 'checked' : '' %>>
+        </div>
+    
+        <div>
+            <label for="hasDrivingLicense">A-t-il un permis de conduire ? :</label>
+            <input type="checkbox" name="hasDrivingLicense" <%= babysitter.hasDrivingLicense ? 'checked' : '' %>>
+        </div>
+    
+        <div>
+            <label for="characteristics">Caractéristiques :</label>
+            <input type="text" name="characteristics" value="<%= babysitter.characteristics %>">
+        </div>
+    
+        <div>
+            <label for="languages">Langues parlées :</label>
+            <input type="text" name="languages" value="<%= babysitter.languages %>">
+        </div>
+    
+        <div>
+            <label for="contact">Contact :</label>
+            <input type="text" name="contact" value="<%= babysitter.phone %>">
+        </div>
+    
+        <div>
+            <label for="profileImage">Image de profil :</label>
+            <input type="file" name="profileImage">
+        </div>
+    
+        <button type="submit">Mettre à jour</button>
+        <a href="/babysitter-profile" class="back-button">← Retour au profil</a>   
+    </form>
+    
+   
+</body>
+</html>

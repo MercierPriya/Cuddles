@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Aclonica&family=Cambo&family=Lily+Script+One&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+body{
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+:root {
+    --main-color: #FF9A8B;  /* Warm Peach */
+    --accent-color: #E76F51; /* Soft Coral */
+    --bg-color: #FAF3E0;    /* Creamy White */
+    --text-color: #2A2A2A; 
+    --main-color2:#14213D; /* Dark Gray */
+  }
+  .lily-script-one-regular {
+    font-family: "Lily Script One", serif;
+    font-weight: 400;
+    font-size:32px;
+    font-style: normal;
+  }
+  
+
+/* Babysitter Profile Container */
+.babysitter-details {
+    background: var(--bg-color);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+}
+
+.detail-cover {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.babysitter-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--accent-color);
+}
+.babysitter-image:hover {
+    transform: rotate(3deg) scale(1.05);
+}
+
+.detail-text h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.detail-text p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.detail-text button {
+    background:var(--main-color);
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition:0.3s ease-in-out;
+}
+
+.detail-text button:hover {
+    background: var(--accent-color);
+    transform:scalex(1.1);
+}
+
+/* Sections */
+ .about-me, .additional-info, .characteristics, .languages, .contact, .skills {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px auto;
+    max-width: 800px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+    color: var(--accent-color);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #555;
+}
+
+/* Skills List */
+.skills ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.skills li {
+    background:var(--accent-color);
+    color: white;
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .detail-cover {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .babysitter-image {
+        width: 100px;
+        height: 100px;
+    }
+
+    .skills li {
+        display: block;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .detail-cover {
+        flex-direction: column;
+        text-align: center;
+    }
+}

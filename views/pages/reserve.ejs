@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation</title>
+    <link rel="stylesheet" href="/css/reserve.css">
+</head>
+<body>
+  
+    <form action="/reserve" method="POST">
+        <input type="hidden" name="babysitterId" value="<%= babysitter._id %>">
+        <input type="hidden" name="parentId" value="<%= parent._id %>"> 
+    
+        <!-- Date de début -->
+        <label for="startDate">Date de début:</label>
+        <input type="date" id="startDate" name="startDate" required>
+    
+        <!-- Date de fin -->
+        <label for="endDate">Date de fin:</label>
+        <input type="date" id="endDate" name="endDate" required>
+    
+        <!-- Préférences de créneaux horaires -->
+        <label for="timePreference">Préférences horaires:</label>
+        <select name="timePreference" id="timePreference" required>
+            <option value="matin">Toute la journée</option>
+            <option value="apres-midi">Matin</option>
+            <option value="soir">Soir</option>
+            <option value="nuit">Nuit</option>
+        </select>
+        <!-- Liste des enfants -->
+        <label for="childSelect">Sélectionner des enfant :</label>
+        <select name="childDetails[]" id="childSelect" multiple required>
+            <% if (parent && Array.isArray(parent.children) && parent.children.length > 0){ %>
+                <% parent.children.forEach(child => { %>
+                    <option value="<%= child.name %>-<%= child.age %>">
+                        <%= child.name %> (Âge: <%= child.age %>)
+                    </option>
+                <% }) %>
+            <% } else { %>
+                <option value="" disabled>Aucun enfant disponible</option>
+            <% } %>
+        </select>
+    
+        <!-- Numéro de téléphone -->
+        <label for="phoneNumber">Numéro de téléphone :</label>
+        <input type="tel" id="phoneNumber" name="phone" value="<%= parent.phone %>" required>
+    
+        <!-- Demande spéciale -->
+        <label for="specialRequest">Demande spéciale (optionnel):</label>
+        <textarea id="specialRequest" name="specialRequest"></textarea>
+    
+        <!-- Réserver le babysitter -->
+        <button type="submit">Réserver Maintenant</button>
+        <a href="/parent-profile" class="back-button"> Retour </a>
+    </form>
+    
+    
+</body>
+</html>

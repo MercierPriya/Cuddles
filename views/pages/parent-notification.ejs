@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/parent-notification.css">
+    <title><%= parent.name %> notifications</title>
+</head>
+<body>
+    <div class="wrapper">
+    <!-- navbar imported from partials -->
+    <%- include('../partials/parent-navbar') %>
+
+    <h2>📌 Notifications & Réservations</h2>
+<!-- Notifications générales -->
+<% if (notifications.length > 0) { %>
+<ul class="notification-list">
+    <% notifications.forEach((notification ,index)=> { %>
+   <li class="notification-item <%= notification.isRead ? 'read' : '' %>" 
+    data-notification-id="<%= notification._id %>">
+
+
+            <p><%= notification.message %></p>
+            <% if (notification.link) { %>
+                <a href="<%= notification.link %>">Voir le profil</a>
+                <p><%= notification.date %></p>
+            <% } %>
+        </li>
+    <% }); %>
+</ul>
+<% } else { %>
+    <p class="empty-message">Aucune notification</p>
+<% } %>
+
+<!-- Liste des réservations faites par le parent -->
+<h3>📅 Vos demandes de réservation</h3>
+<% if (reservations.length > 0) { %>
+<ul class="reservation-list">
+    <% reservations.forEach(reservation => { %>
+     <li class="reservation-item 
+    <%= reservation.status === 'confirmed' ? 'status-confirmed' : 
+        reservation.status === 'rejected' ? 'status-rejected' : 'status-pending' %>">
+
+            <strong>Babysitter :</strong> 
+            <a href="/babysitter-details/<%= reservation.babysitterId._id %>">
+                <%= reservation.babysitterId.name %>
+            </a> <br>
+            <strong>Enfants :</strong> 
+            <% reservation.childDetails.forEach(child => { %>
+                <span><%= child.name %> (Âge: <%= child.age %>)</span>
+            <% }) %> <br>
+            <strong>Date :</strong> 
+            <%= new Date(reservation.startDate).toLocaleDateString('fr-FR') %> - 
+            <%= new Date(reservation.endDate).toLocaleDateString('fr-FR') %> <br>
+            <strong>Contact:</strong>
+            <%= reservation.babysitterId.phone %><br>
+            <strong>Statut :</strong> 
+            <% if (reservation.status === 'pending') { %>
+                ⏳ En attente
+            <% } else if (reservation.status === 'confirmed') { %>
+                ✅ Acceptée
+            <% } else { %>
+                ❌ Rejetée
+            <% } %>
+        </li>
+    <% }) %>
+</ul>
+<% } else { %>
+    <p class="empty-message">Aucune réservation faite</p>
+<% } %>
+<%- include('../partials/simple-footer') %>
+</div>
+</body>
+
+<script>
+    const notificationItems = document.querySelectorAll('.notification-item');
+
+    notificationItems.forEach(item => {
+        item.addEventListener('click', async () => {
+            const notificationId = item.getAttribute('data-notification-id');  // Get the notification ID from the HTML
+            const parentId = '<%= parent._id %>';  // Parent ID from EJS
+
+            if (notificationId) {
+                // Send an API request to mark the notification as read
+                fetch(`/parents/${parentId}/notifications/${notificationId}/mark-as-read`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Notification marked as read:', data);
+                    // Update UI to show it as read
+                    item.style.opacity = 0.5;
+                })
+                .catch(error => {
+                    console.error('Error marking notification as read:', error);
+                });
+            }
+        });
+    });
+</script>
+
+
+</html>
+

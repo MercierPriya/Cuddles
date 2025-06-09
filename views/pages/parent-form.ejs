@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier le profil</title>
+    <link rel="stylesheet" href="/css/form.css">
+</head>
+<body>
+    <div class="form-wrapper"></div>
+    <form action="/update-parent/<%= parent._id %>" method="POST" enctype="multipart/form-data">
+      
+        <h2>Modifier le profil du Parent</h2>
+             
+        <div>
+            <label for="name">Nom :</label>
+            <input type="text" name="name" value="<%= parent.name %>" required>
+        </div>
+
+        <div>
+            <label for="phone">Téléphone :</label>
+            <input type="text" name="phone" value="<%= parent.phone %>">
+        </div>
+
+        <div>
+            <label for="location">Ville :</label>
+            <input type="text" name="location" value="<%= parent.location %>">
+        </div>
+
+        <h3>Enfants :</h3>
+        <% parent.children.forEach((child, index) => { %>
+            <div>
+                <label>Nom de l'enfant :</label>
+                <input type="text" name="children[<%= index %>][name]" value="<%= child.name %>">
+                <label>Âge :</label>
+                <input type="number" name="children[<%= index %>][age]" value="<%= child.age %>">
+            </div>
+        <% }) %>
+                <div>
+            <label for="profileImage">Image de profil :</label>
+            <input type="file" name="profileImage">
+        </div>
+        <button type="submit">Mettre à jour</button>
+
+    <a href="/parent-profile" class="back-button">Retour au profil</a>
+    </form>
+
+       
+</div>
+</body>
+</html>

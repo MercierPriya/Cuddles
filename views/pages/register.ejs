@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/register.css">
+    <title>Register</title>
+</head>
+<body>
+    <form action="/register" method="POST" enctype="multipart/form-data">
+        <h2 class="text-xl  text-gray-700 mb-3 mt-4 font-semibold">Inscription</h2>
+        <input type="text" name="name" placeholder="Nom" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Mot de passe" required>
+        <input type="text" name="phone" placeholder="Téléphone" required>
+        <input type="text" name="location" placeholder="Lieu" required>
+     
+        <h2 class="text-xl  text-gray-700 mb-3 mt-4 font-semibold">Je suis:</h2>
+
+<!-- Toggle Switch -->
+<div class="flex items-center space-x-3">
+    <span class="text-gray-600">Parent</span>
+    <label class="relative mt-6 items-center cursor-pointer">
+        <input type="checkbox" id="roleToggle" class="sr-only peer" onchange="toggleRole()">
+        <div class="peer w-14 h-7 rounded-full">
+             <!-- This is where the toggle track and circle are styled  -->
+    </div> 
+    </label>
+    <span class="text-gray-600">Babysitter</span>
+</div>
+<!-- Hidden Input for Role -->
+<input type="hidden" name="role" id="roleInput" value="parent">
+  
+        <!-- Pour Parent -->
+        <div id="parentFields"class="mt-4 ">
+            <h2 class="text-xl  text-gray-700 mb-3 mt-4 font-awesome">Connectez avec top <b>Babysitter</b> et <b>Nounou</b> pres chez vous</h2>
+            <label>Enfants :</label>
+            <input type="text" name="children[0][name]" placeholder="Nom enfant 1">
+            <input type="number" name="children[0][age]" placeholder="Âge enfant 1">
+            <input type="text" name="children[1][name]" placeholder="Nom enfant 2">
+            <input type="number" name="children[1][age]" placeholder="Âge enfant 2">
+            <input type="text" name="children[2][name]" placeholder="Nom enfant 3">
+            <input type="number" name="children[2][age]" placeholder="Âge enfant 3">
+        </div>
+        
+        <!-- Pour Babysitter -->
+        <div id="babysitterFields" class="mt-4 hidden">
+            <div id="messageDocuments" class="alert">
+                <p><strong>⚠️ Avant de créer votre profil, assurez-vous d'avoir les documents suivants :</strong></p>
+                <ul>
+                    <li>📜 Diplôme certifiant</li>
+                    <li>📄 Certificat</li>
+                    <li>🆔 Carte d'identité récente</li>
+                    <li>📝 Casier judiciaire</li>
+                </ul>
+                <p>Ces documents doivent être au format <strong>PDF, JPG ou PNG</strong>.</p>
+          </div>
+            <input type="number" name="age" placeholder="Âge" >
+            <input type="number" name="experience" placeholder="Expérience (en années)">
+            <label for="profileImage" class="upload-label">
+                <img id="previewImage" src="/uploads/default.jpg" alt="Cliquez pour ajouter une photo:">
+            </label>
+            <input type="file" name="profileImage" id="profileImage" accept="image/*" required>
+            <label>📜 Diplôme :</label>
+            <input type="file" name="diploma" accept=".pdf,.jpg,.png" >
+            <label>📄 Certificat :</label>
+            <input type="file" name="certificate" accept=".pdf,.jpg,.png">
+            <label>🆔 Carte d'identité :</label>
+            <input type="file" name="identityCard" accept=".pdf,.jpg,.png" >
+            <label>📝 Casier judiciaire :</label>
+            <input type="file" name="criminalRecord" accept=".pdf,.jpg,.png" >
+        </div>
+    
+        <button type="submit" id="submitButton">S'inscrire</button>
+        
+         <a href="/" class="back-button">Retour à l'accueil</a>
+   
+    </form>
+    <% if (typeof error !== 'undefined' && error) { %>
+  <script>
+    alert("<%= error %>");
+  </script>
+<% } %>
+    <script>
+     function toggleRole() {
+    let isChecked = document.getElementById("roleToggle").checked;
+    console.log(isChecked);
+    
+    document.getElementById("parentFields").classList.toggle("hidden", isChecked);
+    document.getElementById("babysitterFields").classList.toggle("hidden", !isChecked);
+
+    const roleInput = document.getElementById("roleInput");
+     roleInput.value =isChecked ? "babysitter" : "parent";
+    console.log("Rôle sélectionné :", roleInput.value);
+
+     // Rendre les champs requis uniquement si le rôle est "babysitter"
+     let requiredFields = babysitterFields.querySelectorAll("[required]");
+        requiredFields.forEach(field => {
+            if (isChecked) {
+                field.setAttribute("required", "true");
+            } else {
+                field.removeAttribute("required");
+            }
+        });
+
+     // Mise à jour du texte du bouton
+     document.getElementById("submitButton").innerText = isChecked ? "Vérifiez-moi" : "S'inscrire";
+     //preview profile
+     document.getElementById("profileImage").addEventListener("change", function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById("previewImage").src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+
+}
+
+</script>
+<script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+</body>
+</html>

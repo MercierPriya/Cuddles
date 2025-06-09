@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin-Dashboard</title>
+</head>
+<body>
+    <nav style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
+    <!-- Logo -->
+    <div>
+        <a href="/admin">
+            <img src="/images/logo-color.png" alt="Logo du site" style="height: 60px;">
+        </a>
+    </div>
+
+    <!-- Profile dropdown -->
+    <div style="position: relative;">
+        <img src="/uploads/<%= user.profileImage || 'default-avatar.jpg' %>" alt="Profil" id="profileIcon" style="height: 40px; width: 40px; border-radius: 50%; cursor: pointer;">
+
+        <!-- Dropdown -->
+        <div id="dropdownMenu" style="display: none; position: absolute; right: 0; top: 50px; background-color: white; border: 1px solid #ddd; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-radius: 5px;">
+            <a href="/logout" style="display: block; padding: 10px 15px; text-decoration: none; color: black;">Déconnexion</a>
+        </div>
+    </div>
+</nav>
+</body>
+<script>
+    const profileIcon = document.getElementById('profileIcon');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+
+    profileIcon.addEventListener('click', () => {
+        dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Optional: close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!profileIcon.contains(e.target) && !dropdownMenu.contains(e.target)) {
+            dropdownMenu.style.display = 'none';
+        }
+    });
+</script>
+
+</html>
