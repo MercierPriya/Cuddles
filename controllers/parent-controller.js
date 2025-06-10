@@ -253,7 +253,12 @@ exports.register=async(req,res)=>{
             }
     
             await user.save();
-             res.redirect('/login');
+            //  res.redirect('/login');
+            if (role === 'parent') {
+  return res.redirect('/login?registered=parent');
+} else if (role === 'babysitter') {
+  return res.redirect('/login?registered=babysitter');
+}
 
         } catch (error) {
             res.status(500).json({ message: "Erreur serveur", error });

@@ -13,6 +13,14 @@
     <div style="text-align: center; margin-bottom: 1rem;">
   <img src="/images/logo-color.png" alt="Logo Cuddles" style="height:150px; width:150px;" />
 </div>
+<% if (typeof registered !== 'undefined') { %>
+  <% if (registered === 'parent') { %>
+    <script>alert('Inscription réussie. Essayez de vous connecter.');</script>
+  <% } else if (registered === 'babysitter') { %>
+    <script>alert('Votre profil est en cours de vérification.');</script>
+  <% } %>
+<% } %>
+
     <h1>Connexion à Cuddles</h1>
     <form id="loginForm" action="/login" method="POST">
       <input type="email" name="email" placeholder="Email" required />
