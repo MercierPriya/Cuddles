@@ -327,13 +327,42 @@ exports.getUpdateParent=async(req,res)=>{
     } 
   }
   exports.postUpdateParent=async (req, res) => {
+       if (!req.session.user || !req.session.user.id) {
+        return res.status(401).send("Non autorisé : utilisateur non connecté.");
+    }
     const id = req.session.user.id;
     console.log(req.body);
-    const { name, phone, location, children} = req.body;
-    const profileImage=req.file.filename;
+    const { name, email,phone, location, children} = req.body;
+   
+    const updateData = { name, email, phone, location, children };
+
+    // Ajouter l'image seulement si un fichier a été uploadé
+    if (req.file) {
+        updateData.profileImage = req.file.filename;
+        // Mettre à jour la session aussi
+        req.session.user.profileImage = req.file.filename;
+    }
+
 try{
-   const user= await Parent.findByIdAndUpdate(id, { name, email, phone, location, children,profileImage });
-    res.render('pages/parent-profile', { user });
+   const user= await Parent.findByIdAndUpdate(id,updateData, { new: true });
+
+    req.session.user = {
+            id: user._id,
+            email: user.email,
+            name: user.name,
+            profileImage: user.profileImage
+        };
+   const sameCityBabysitters = await Babysitter.find({ location });
+
+   // search results
+    const allBabysitters = await Babysitter.find({});
+    let searchResults = [];
+    if (location) {
+      searchResults = allBabysitters.filter((b) =>
+        b.location.toLowerCase().includes(location.trim().toLowerCase())
+      );
+    }
+    res.render('pages/parent-profile', { user ,location, sameCityBabysitters,searchResults });
 }
     catch(err){
         console.error(err);

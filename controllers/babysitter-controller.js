@@ -97,8 +97,8 @@ exports.update= async (req, res) => {
             updateData.profileImage = req.file.filename; // Ajouter l'image si elle est modifiée
         }
 
-        await Babysitter.findByIdAndUpdate(babysitterId, updateData, { new: true });
-
+        const updatedUser=await Babysitter.findByIdAndUpdate(babysitterId, updateData, { new: true });
+             req.session.user.profileImage = updatedUser.profileImage;
         res.redirect('/babysitter-profile'); // Rediriger vers le profil après mise à jour
     } catch (error) {
         console.error(error);
