@@ -107,10 +107,11 @@ function toggleRole() {
             field.removeAttribute("required");
         }
     });
-}
-toggleRole();
+
+
      // Mise à jour du texte du bouton
      document.getElementById("submitButton").innerText = isChecked ? "Vérifiez-moi" : "S'inscrire";
+
      //preview profile
      document.getElementById("profileImage").addEventListener("change", function(event) {
     const file = event.target.files[0];
@@ -123,7 +124,8 @@ toggleRole();
     }
 });
 
-
+}
+toggleRole();
 
 
 </script>
