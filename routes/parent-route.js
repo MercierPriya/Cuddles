@@ -18,7 +18,6 @@ const session = require("express-session")
 router.get("/", (req, res) => {res.render("pages/home"); 
 })
 // Route to render the login page
-// router.get("/login", (req, res) => {res.render("pages/login",{message:null}); }); 
 router.get('/login', (req, res) => {
   const { registered } = req.query;
   res.render('pages/login', { registered ,message:null});

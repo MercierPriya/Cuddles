@@ -38,7 +38,7 @@ exports.forgotPassword = async (req, res) => {
             service: "gmail", // Utiliser le service Gmail
             auth: {
                 user: process.env.EMAIL_USER, // valeurs sont bien défini en .env
-                pass: process.env.EMAIL_PASS  // Utilisé un mot de passe d'application si 2FA est activé
+                pass: process.env.EMAIL_PASS  
             }
         });
         
