@@ -21,7 +21,7 @@ const reservationSchema = new mongoose.Schema({
     },
     timePreference: {
         type: String,
-        enum: ['matin', 'apres-midi', 'soir', 'nuit'], // Options pour la préférence horaire
+        enum: ['toute la journée', 'matin', 'soir', 'nuit'], // Options pour la préférence horaire
         required: true
     },
     
